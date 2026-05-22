@@ -626,6 +626,1129 @@ function backToLogin(){
   document.getElementById("resultPage").style.display = "none";
 
   document.getElementById("loginPage").style.display = "flex";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TBSE Futuristic AI Dashboard</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#020617;
+color:white;
+overflow-x:hidden;
+}
+
+/* PARTICLES */
+
+#particles{
+position:fixed;
+inset:0;
+z-index:-1;
+overflow:hidden;
+}
+
+.particle{
+position:absolute;
+width:4px;
+height:4px;
+background:#00d9ff;
+border-radius:50%;
+opacity:0.5;
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+
+from{
+transform:translateY(100vh);
+}
+
+to{
+transform:translateY(-100vh);
+}
+
+}
+
+/* LOADER */
+
+.loader-screen{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#07182c,#020617);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+z-index:99999;
+transition:1s;
+}
+
+.loader-glow{
+position:absolute;
+width:500px;
+height:500px;
+background:
+radial-gradient(circle,
+rgba(0,217,255,0.25),
+transparent 70%);
+filter:blur(50px);
+animation:pulseGlow 4s infinite;
+}
+
+@keyframes pulseGlow{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.15);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.loader-center{
+position:relative;
+z-index:10;
+text-align:center;
+}
+
+.tbse-logo{
+width:170px;
+height:170px;
+border-radius:50%;
+border:3px solid #00d9ff;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:55px;
+font-weight:bold;
+color:#00d9ff;
+margin:auto;
+box-shadow:
+0 0 20px #00d9ff,
+0 0 60px rgba(0,217,255,0.5),
+inset 0 0 20px rgba(0,217,255,0.3);
+animation:logoPulse 2s infinite;
+}
+
+@keyframes logoPulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.08);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.auth-text{
+margin-top:35px;
+font-size:34px;
+letter-spacing:4px;
+color:#00d9ff;
+}
+
+.scanner-line{
+width:350px;
+height:5px;
+margin:auto;
+margin-top:30px;
+background:
+linear-gradient(90deg,
+transparent,
+#00d9ff,
+transparent);
+animation:scanner 1.5s infinite;
+}
+
+@keyframes scanner{
+
+0%{
+transform:translateX(-100px);
+}
+
+100%{
+transform:translateX(100px);
+}
+
+}
+
+.loading-container{
+width:400px;
+height:18px;
+border-radius:30px;
+overflow:hidden;
+background:rgba(255,255,255,0.08);
+margin:auto;
+margin-top:35px;
+}
+
+.loading-bar{
+width:0%;
+height:100%;
+background:
+linear-gradient(90deg,
+#00d9ff,
+#0066ff);
+box-shadow:0 0 20px #00d9ff;
+}
+
+.loading-percent{
+margin-top:20px;
+font-size:36px;
+}
+
+.verify{
+margin-top:25px;
+font-size:22px;
+color:#6fffe9;
+opacity:0;
+transition:1s;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+display:none;
+padding:25px;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+border-radius:25px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.nav-left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.small-logo{
+width:60px;
+height:60px;
+border-radius:50%;
+background:#00d9ff;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:bold;
+font-size:24px;
+color:black;
+box-shadow:0 0 25px #00d9ff;
+}
+
+.search{
+width:300px;
+height:50px;
+border:none;
+outline:none;
+padding:0 18px;
+border-radius:14px;
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.nav-icon{
+width:45px;
+height:45px;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* SETUP */
+
+.setup-card{
+margin-top:30px;
+padding:35px;
+border-radius:30px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 35px rgba(0,217,255,0.15);
+}
+
+.input{
+width:100%;
+height:55px;
+margin-top:18px;
+border:none;
+outline:none;
+padding:0 18px;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+.launch-btn{
+width:100%;
+height:55px;
+margin-top:20px;
+border:none;
+border-radius:15px;
+background:#00d9ff;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* PROFILE */
+
+.profile-card{
+margin-top:30px;
+padding:30px;
+display:none;
+align-items:center;
+gap:25px;
+border-radius:30px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+transition:0.4s;
+}
+
+.profile-card:hover{
+transform:rotateY(5deg) rotateX(5deg);
+}
+
+.profile-image{
+width:130px;
+height:130px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #00d9ff;
+box-shadow:0 0 25px #00d9ff;
+}
+
+.profile-info h1{
+font-size:34px;
+}
+
+.profile-info p{
+margin-top:8px;
+opacity:0.85;
+}
+
+/* TILES */
+
+.tiles{
+margin-top:30px;
+display:none;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.tile{
+padding:35px;
+border-radius:25px;
+text-align:center;
+background:linear-gradient(135deg,#07182c,#0f3460);
+cursor:pointer;
+transition:0.35s;
+}
+
+.tile:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 35px rgba(0,217,255,0.25);
+}
+
+.tile i{
+font-size:38px;
+margin-bottom:15px;
+color:#00d9ff;
+}
+
+/* ORB */
+
+.orb-card{
+margin-top:30px;
+padding:35px;
+display:none;
+text-align:center;
+border-radius:30px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.orb{
+width:220px;
+height:220px;
+border-radius:50%;
+margin:auto;
+margin-top:25px;
+border:8px solid rgba(0,217,255,0.3);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+font-weight:bold;
+color:#00d9ff;
+animation:rotateOrb 8s linear infinite;
+box-shadow:
+0 0 35px rgba(0,217,255,0.5),
+inset 0 0 20px rgba(0,217,255,0.3);
+}
+
+@keyframes rotateOrb{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+/* CHALLENGE */
+
+.challenge{
+margin-top:30px;
+padding:35px;
+display:none;
+border-radius:30px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.options{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:25px;
+}
+
+.options button{
+height:55px;
+border:none;
+border-radius:15px;
+background:#00d9ff;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* AI ASSISTANT */
+
+.assistant-btn{
+position:fixed;
+right:30px;
+bottom:30px;
+width:80px;
+height:80px;
+border-radius:50%;
+background:linear-gradient(135deg,#00d9ff,#0066ff);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:32px;
+cursor:pointer;
+box-shadow:0 0 30px #00d9ff;
+animation:floatBot 3s infinite;
+z-index:1000;
+}
+
+@keyframes floatBot{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.chatbox{
+position:fixed;
+right:30px;
+bottom:130px;
+width:350px;
+height:500px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.08);
+display:none;
+flex-direction:column;
+overflow:hidden;
+z-index:1000;
+}
+
+.chat-header{
+padding:18px;
+background:rgba(0,217,255,0.15);
+text-align:center;
+font-weight:bold;
+}
+
+.chat-body{
+flex:1;
+padding:18px;
+overflow:auto;
+}
+
+.bot,
+.user{
+padding:12px 15px;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+.bot{
+background:rgba(255,255,255,0.08);
+}
+
+.user{
+background:#00d9ff;
+color:black;
+}
+
+.chat-input-area{
+display:flex;
+}
+
+.chat-input{
+flex:1;
+height:55px;
+border:none;
+outline:none;
+padding:0 15px;
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+.send-btn{
+width:80px;
+border:none;
+background:#00d9ff;
+cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.tiles{
+grid-template-columns:1fr;
+}
+
+.navbar{
+flex-direction:column;
+gap:20px;
+}
+
+.profile-card{
+flex-direction:column;
+text-align:center;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- PARTICLES -->
+
+<div id="particles"></div>
+
+<!-- LOADER -->
+
+<div class="loader-screen" id="loaderScreen">
+
+<div class="loader-glow"></div>
+
+<div class="loader-center">
+
+<div class="tbse-logo">
+TB
+</div>
+
+<h1 class="auth-text">
+AUTHENTICATING...
+</h1>
+
+<div class="scanner-line"></div>
+
+<div class="loading-container">
+
+<div class="loading-bar" id="loadingBar"></div>
+
+</div>
+
+<div class="loading-percent" id="loadingPercent">
+0%
+</div>
+
+<div class="verify" id="verifyText">
+
+✔ Identity Verified <br>
+Welcome to TBSE Network
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard" id="dashboard">
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="nav-left">
+
+<div class="small-logo">
+TB
+</div>
+
+<div>
+
+<h2>TBSE Network</h2>
+
+<p style="opacity:0.7;font-size:13px;">
+Thara Board of Secondary Education
+</p>
+
+</div>
+
+</div>
+
+<input type="text"
+class="search"
+placeholder="Search TBSE Portal...">
+
+<div class="nav-right">
+
+<div id="liveTime"></div>
+
+<div class="nav-icon">
+🔔
+</div>
+
+<div class="nav-icon">
+👤
+</div>
+
+</div>
+
+</div>
+
+<!-- SETUP -->
+
+<div class="setup-card" id="setupCard">
+
+<h1>Student Verification</h1>
+
+<input type="text"
+class="input"
+id="studentName"
+placeholder="Enter Student Name">
+
+<input type="text"
+class="input"
+id="studentRoll"
+placeholder="Enter Roll Number">
+
+<input type="text"
+class="input"
+id="studentClass"
+placeholder="Enter Class">
+
+<input type="number"
+class="input"
+id="studentPercentage"
+placeholder="Enter Class 12 Percentage">
+
+<input type="file"
+class="input"
+id="studentImage"
+accept="image/*">
+
+<button class="launch-btn"
+onclick="launchDashboard()">
+
+Launch Dashboard
+
+</button>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="profile-card"
+id="profileCard">
+
+<img id="profilePreview"
+class="profile-image">
+
+<div class="profile-info">
+
+<h1 id="displayName"></h1>
+
+<p id="displayRoll"></p>
+
+<p id="displayClass"></p>
+
+<p id="displayPercentage"></p>
+
+</div>
+
+</div>
+
+<!-- TILES -->
+
+<div class="tiles"
+id="tiles">
+
+<div class="tile">
+<i class="fa-solid fa-chart-line"></i>
+<h2>Results</h2>
+</div>
+
+<div class="tile">
+<i class="fa-solid fa-book"></i>
+<h2>Exams</h2>
+</div>
+
+<div class="tile">
+<i class="fa-solid fa-credit-card"></i>
+<h2>Fee Payment</h2>
+</div>
+
+<div class="tile">
+<i class="fa-solid fa-folder"></i>
+<h2>Documents</h2>
+</div>
+
+<div class="tile">
+<i class="fa-solid fa-chart-pie"></i>
+<h2>Analytics</h2>
+</div>
+
+<div class="tile">
+<i class="fa-solid fa-trophy"></i>
+<h2>Achievements</h2>
+</div>
+
+</div>
+
+<!-- ORB -->
+
+<div class="orb-card"
+id="orbCard">
+
+<h1>AI Academic Orb</h1>
+
+<div class="orb"
+id="orbPercentage">
+95%
+</div>
+
+</div>
+
+<!-- CHALLENGE -->
+
+<div class="challenge"
+id="challenge">
+
+<h1>Daily AI Challenge</h1>
+
+<h2 style="margin-top:20px;">
+What is the SI unit of electric flux?
+</h2>
+
+<div class="options">
+
+<button onclick="checkAnswer('A')">
+Nm²/C
+</button>
+
+<button onclick="checkAnswer('B')">
+Tesla
+</button>
+
+<button onclick="checkAnswer('C')">
+Volt
+</button>
+
+<button onclick="checkAnswer('D')">
+Joule
+</button>
+
+</div>
+
+<p id="quizResult"
+style="margin-top:20px;"></p>
+
+</div>
+
+</div>
+
+<!-- AI ASSISTANT -->
+
+<div class="assistant-btn"
+onclick="toggleAI()">
+🤖
+</div>
+
+<div class="chatbox"
+id="chatbox">
+
+<div class="chat-header">
+TBSE Assist AI
+</div>
+
+<div class="chat-body"
+id="chatBody">
+
+<div class="bot">
+👋 Hello! Ask me your Class 12 doubts.
+</div>
+
+</div>
+
+<div class="chat-input-area">
+
+<input type="text"
+class="chat-input"
+id="chatInput"
+placeholder="Ask anything...">
+
+<button class="send-btn"
+onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* PARTICLES */
+
+for(let i=0;i<140;i++){
+
+let particle=document.createElement('div');
+
+particle.classList.add('particle');
+
+particle.style.left=Math.random()*100+'vw';
+
+particle.style.animationDuration=
+(Math.random()*10+5)+'s';
+
+particle.style.opacity=Math.random();
+
+document.getElementById('particles')
+.appendChild(particle);
+
+}
+
+/* LOADING */
+
+let percent=0;
+
+let interval=setInterval(()=>{
+
+percent++;
+
+document.getElementById('loadingPercent')
+.innerHTML=percent+'%';
+
+document.getElementById('loadingBar')
+.style.width=percent+'%';
+
+if(percent>=100){
+
+clearInterval(interval);
+
+document.getElementById('verifyText')
+.style.opacity='1';
+
+setTimeout(()=>{
+
+document.getElementById('loaderScreen')
+.style.opacity='0';
+
+setTimeout(()=>{
+
+document.getElementById('loaderScreen')
+.style.display='none';
+
+document.getElementById('dashboard')
+.style.display='block';
+
+},1000);
+
+},2000);
+
+}
+
+},40);
+
+/* TIME */
+
+function updateTime(){
+
+document.getElementById('liveTime')
+.innerHTML=new Date().toLocaleString();
+
+}
+
+setInterval(updateTime,1000);
+
+updateTime();
+
+/* LAUNCH */
+
+function launchDashboard(){
+
+let name=
+document.getElementById('studentName').value;
+
+let roll=
+document.getElementById('studentRoll').value;
+
+let studentClass=
+document.getElementById('studentClass').value;
+
+let percentage=
+document.getElementById('studentPercentage').value;
+
+let image=
+document.getElementById('studentImage').files[0];
+
+if(!name || !roll || !studentClass || !percentage || !image){
+
+alert("Please fill all details");
+
+return;
+
+}
+
+document.getElementById('displayName')
+.innerHTML=name;
+
+document.getElementById('displayRoll')
+.innerHTML="Roll No: "+roll;
+
+document.getElementById('displayClass')
+.innerHTML="Class: "+studentClass;
+
+document.getElementById('displayPercentage')
+.innerHTML="Class 12 Percentage: "+percentage+"%";
+
+document.getElementById('orbPercentage')
+.innerHTML=percentage+"%";
+
+let reader=new FileReader();
+
+reader.onload=function(e){
+
+document.getElementById('profilePreview')
+.src=e.target.result;
+
+}
+
+reader.readAsDataURL(image);
+
+document.getElementById('setupCard')
+.style.display='none';
+
+document.getElementById('profileCard')
+.style.display='flex';
+
+document.getElementById('tiles')
+.style.display='grid';
+
+document.getElementById('orbCard')
+.style.display='block';
+
+document.getElementById('challenge')
+.style.display='block';
+
+}
+
+/* QUIZ */
+
+function checkAnswer(answer){
+
+if(answer==="A"){
+
+document.getElementById('quizResult')
+.innerHTML=
+"✅ Correct Answer! +100 XP";
+
+document.getElementById('quizResult')
+.style.color="#00ff95";
+
+}
+
+else{
+
+document.getElementById('quizResult')
+.innerHTML=
+"❌ Wrong Answer";
+
+document.getElementById('quizResult')
+.style.color="#ff4d6d";
+
+}
+
+}
+
+/* AI */
+
+function toggleAI(){
+
+let box=
+document.getElementById('chatbox');
+
+if(box.style.display==="flex"){
+
+box.style.display="none";
+
+}
+
+else{
+
+box.style.display="flex";
+
+}
+
+}
+
+function sendMessage(){
+
+let input=
+document.getElementById('chatInput');
+
+let text=input.value;
+
+if(text==="") return;
+
+let body=
+document.getElementById('chatBody');
+
+body.innerHTML+=`
+<div class="user">
+${text}
+</div>
+`;
+
+let reply="";
+
+let msg=text.toLowerCase();
+
+if(msg.includes("physics")){
+
+reply=
+"⚡ Physics Tip: Focus on derivations and PYQs.";
+
+}
+
+else if(msg.includes("chemistry")){
+
+reply=
+"🧪 Chemistry Tip: Organic mechanisms are important.";
+
+}
+
+else if(msg.includes("biology")){
+
+reply=
+"🧬 Biology Tip: Read NCERT line-by-line.";
+
+}
+
+else if(msg.includes("math")){
+
+reply=
+"📘 Maths Tip: Practice vectors and integration.";
+
+}
+
+else{
+
+reply=
+"🤖 TBSE Assist AI: Ask me Physics, Chemistry, Biology or Maths doubts.";
+
+}
+
+setTimeout(()=>{
+
+body.innerHTML+=`
+<div class="bot">
+${reply}
+</div>
+`;
+
+body.scrollTop=body.scrollHeight;
+
+},700);
+
+input.value="";
 
 }
 
@@ -633,3 +1756,4 @@ function backToLogin(){
 
 </body>
 </html>
+
